@@ -1,0 +1,30 @@
+.logo-img{
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.logo-header{
+    float: none;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.user-logo{
+    width: 100px;
+    height: 100px;
+}
+body{
+    padding: 1em 0 0 0;
+}
+
+header{
+    height: 3em;
+}
+
+main{
+    margin-top: 2em;
+}
