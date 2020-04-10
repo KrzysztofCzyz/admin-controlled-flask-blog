@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
-    <script src="static/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="static/main.css">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
 <header class="container-xl">
     <div class="row no-gutters">
         <div class="col-2 align-items-center">
-            <a class="logo" href="#"><img src="static/firefox-logo.png" alt="user logo" class="rounded-circle logo-img"><h3 class="logo-header">Home</h3></a>
+            <a class="logo" href="#"><img src="static/firefox-logo.png" alt="user logo" class="rounded-circle logo-img"><h3 class="logo-header">MyBlog</h3></a>
         </div>
         <div class="col-4"></div>
         <div class="col-6 container-fluid">
@@ -39,7 +39,7 @@
             </ul>
         </nav>
         <div class="col-sm-11">
-
+            {% block content %}{% endblock %}
         </div>
     </div>
 </main>
