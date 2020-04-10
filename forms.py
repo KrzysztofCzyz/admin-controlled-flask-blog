@@ -12,8 +12,8 @@ class SignInForm(FlaskForm):
 
 
 class NewPostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(), Length(min=5, max=30, message='Title length must be '
-                                                                                           'between 5 and 30 '
+    title = StringField('Title', validators=[DataRequired(), Length(min=5, max=60, message='Title length must be '
+                                                                                           'between 5 and 60 '
                                                                                            'characters')])
     leadimg = FileField('Lead Image', validators=[
         FileAllowed(['jpg', 'png'], 'Images only!'),

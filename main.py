@@ -1,8 +1,11 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, flash
 from forms import SignInForm, NewPostForm
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config.from_envvar('FLASK_APP_SETTINGS')
+db = SQLAlchemy(app=app)
+
 
 posts = [
     {
@@ -54,7 +57,10 @@ def login():
 @app.route('/new-post', methods=('POST', 'GET'))
 def new_post():
     form = NewPostForm()
+
     if form.validate_on_submit():
+        title = form.title
+        flash('Post Created!', category='success')
         return redirect(url_for('home'))
     return render_template('post-editor.html', title='New Post', form=form, action='Create a Post')
 
