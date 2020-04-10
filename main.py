@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for
-from forms import SignInForm
+from forms import SignInForm, NewPostForm
 
 app = Flask(__name__)
 app.config.from_envvar('FLASK_APP_SETTINGS')
@@ -46,9 +46,19 @@ def home():
 @app.route('/login', methods=('POST', 'GET'))
 def login():
     form = SignInForm()
+    if form.validate_on_submit():
+        pass
     return render_template('sign-in.html', title='Sign In', form=form)
 
 
-@app.route('/new-post')
+@app.route('/new-post', methods=('POST', 'GET'))
 def new_post():
-    return render_template('post-editor.html', title='New Post')
+    form = NewPostForm()
+    if form.validate_on_submit():
+        return redirect(url_for('home'))
+    return render_template('post-editor.html', title='New Post', form=form, action='Create a Post')
+
+
+@app.route('/reset')
+def reset_password():
+    pass
