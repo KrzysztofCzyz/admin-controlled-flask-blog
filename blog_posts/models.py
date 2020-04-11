@@ -39,3 +39,4 @@ class PostMetadata(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     views = db.Column(db.Integer, nullable=False, default=0)
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
