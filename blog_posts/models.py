@@ -1,22 +1,23 @@
-from main import db
 from datetime import datetime
-
-# TODO fix data relationships as per https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/
+from blog_posts import db
 
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    header_id = db.Column(db.Integer, db.ForeignKey('postheader.id'), nullable=False)
-    content_id = db.Column(db.Integer, db.ForeignKey('postcontent.id'), nullable=False)
+    p_header = db.relationship('PostHeader',
+                               backref=db.backref('post', lazy=True, uselist=False), lazy=True, uselist=False)
+    p_content = db.relationship('PostContent',
+                                backref=db.backref('post', lazy=True, uselist=False), lazy=True, uselist=False)
+    p_metadata = db.relationship('PostMetadata',
+                                 backref=db.backref('post', lazy=True, uselist=False), lazy=True, uselist=False)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
-    metadata_id = db.Column(db.Integer, db.ForeignKey('postmetadata.id'), nullable=False)
 
 
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     surname = db.Column(db.String(30), nullable=False)
-    posts = db.relationship('Post', backref='author')
+    posts = db.relationship('Post', backref=db.backref('author', lazy=True, uselist=False), lazy=True)
 
 
 class PostHeader(db.Model):
@@ -36,6 +37,5 @@ class PostContent(db.Model):
 class PostMetadata(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-    last_updated = db.Column(db.Integer, nullable=True)
-    views = db.Column(db.Integer, nullable=False)
+    views = db.Column(db.Integer, nullable=False, default=0)
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

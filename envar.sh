@@ -1,5 +1,5 @@
 #!/bin/bash
-export FLASK_APP=main.py
+export FLASK_APP=$(pwd)/blog_posts/__init__.py
 export FLASK_APP_SETTINGS="$(pwd)/devel-config"
 if [ "$1" = "dev" ];then
   export FLASK_DEBUG=1
