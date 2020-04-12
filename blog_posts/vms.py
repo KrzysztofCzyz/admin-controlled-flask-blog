@@ -14,7 +14,7 @@ class PostHeaderVM:
             for header, metadata in posts:
                 last_updated = round((datetime.utcnow() - metadata.created).total_seconds())
                 mapped_posts.append({
-                    'post-id': header.post_id,
+                    'postId': header.post_id,
                     'title': header.title,
                     'lead': header.lead_text,
                     'content': 'First post content',
@@ -24,4 +24,18 @@ class PostHeaderVM:
                     'leadImage': header.lead_graphic
                 })
         return mapped_posts
+
+
+class PostVM:
+
+    @staticmethod
+    def map(post):
+        mapping = {
+            'title': post.p_header.title,
+            'leadGraphic': post.p_header.lead_graphic,
+            'content': post.p_content.text,
+            'views': post.p_metadata.views,
+            'createdOn': post.p_metadata.created,
+            'lastEdited': post.p_metadata.last_edited
+        }
 
