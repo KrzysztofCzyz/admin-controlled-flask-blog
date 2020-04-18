@@ -38,4 +38,5 @@ class PostVM:
             'createdOn': post.p_metadata.created,
             'lastEdited': post.p_metadata.last_edited
         }
+        return mapping
 

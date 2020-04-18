@@ -1,5 +1,5 @@
 from blog_posts import app, db
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, abort
 from blog_posts.forms import SignInForm, NewPostForm
 from blog_posts.models import Post, PostContent, PostHeader, PostMetadata
 from blog_posts.utils import get_post_headers, get_post_vm_by_id
@@ -21,9 +21,11 @@ def login():
     return render_template('sign-in.html', title='Sign In', form=form)
 
 
-@app.route('/post/<post_id>:int')
+@app.route('/post/<post_id>')
 def article(post_id):
     post_vm = get_post_vm_by_id(post_id)
+    if post_vm is None:
+        abort(404)
     return render_template('post.html', title=post_vm['title'], post=post_vm)
 
 
