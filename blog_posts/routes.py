@@ -3,6 +3,8 @@ from flask import render_template, redirect, url_for, flash, abort
 from blog_posts.forms import SignInForm, NewPostForm
 from blog_posts.models import Post, PostContent, PostHeader, PostMetadata
 from blog_posts.utils import get_post_headers, get_post_vm_by_id
+from flask_login import login_required, login_user
+from wtforms.validators import ValidationError
 
 
 @app.route('/')
@@ -17,7 +19,12 @@ def home():
 def login():
     form = SignInForm()
     if form.validate_on_submit():
-        pass
+        try:
+            login_user(user=form.validate_data(), remember=form.remember)
+            flash('Login successful', category='success')
+            return
+        except ValidationError:
+            flash('This combination of user and password is not valid', category='danger')
     return render_template('sign-in.html', title='Sign In', form=form)
 
 
@@ -30,6 +37,7 @@ def article(post_id):
 
 
 @app.route('/new-post', methods=('POST', 'GET'))
+@login_required
 def new_post():
     form = NewPostForm()
     if form.validate_on_submit():
