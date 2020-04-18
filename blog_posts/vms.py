@@ -12,7 +12,7 @@ class PostHeaderVM:
         mapped_posts = list()
         for posts in args:
             for header, metadata in posts:
-                last_updated = round((datetime.utcnow() - metadata.created).total_seconds())
+                last_updated = round((datetime.utcnow() - metadata.last_edited).total_seconds())
                 mapped_posts.append({
                     'postId': header.post_id,
                     'title': header.title,

@@ -22,9 +22,9 @@ dictConfig({
 app = Flask(__name__)
 app.config.from_envvar('FLASK_APP_SETTINGS')
 db = SQLAlchemy(app=app)
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_message_category = "info"
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.login_message_category = "info"
 
 
 import blog_posts.routes
