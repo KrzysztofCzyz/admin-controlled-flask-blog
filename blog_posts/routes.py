@@ -1,5 +1,4 @@
 from blog_posts import app, db
-import logging
 from flask import render_template, redirect, url_for, flash
 from blog_posts.forms import SignInForm, NewPostForm
 from blog_posts.models import Post, PostContent, PostHeader, PostMetadata
